@@ -36,6 +36,4 @@ verifyToken = (req, res, next) => {
         verifyToken,
     };
 
-      
-      module.exports = authJwt;
-      
+module.exports = authJwt;
