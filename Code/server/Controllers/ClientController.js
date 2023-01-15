@@ -1,29 +1,34 @@
 const Client = require('../Models/ClientModel')
+const asyncHandler = require('express-async-handler')
 
 // Create and Save a new Client
-exports.create = async (req, res) => {
-    if (!req.body.email && !req.body.name && !req.body.cin && !req.body.phone) {
-        res.status(400).send({ message: "Content can not be empty!" });
-    }
-    
-    const client = new Client({
-        email: req.body.email,
-        name: req.body.name,
-        cin: req.body.cin,
-        phone: req.body.phone
-    });
-    
-    await client.save().then(data => {
-        res.send({
-            message:"Client created successfully!!",
-            client:data
+exports.create = asyncHandler(
+    async (req, res) => {
+        console.log(req.body)
+        if (!req.body.email || !req.body.name || !req.body.cin || !req.body.phone) {
+        res.status(400)
+           throw new Error('content not be  empty')
+        }
+        
+        const client = new Client({
+            email: req.body.email,
+            name: req.body.name,
+            cin: req.body.cin,
+            phone: req.body.phone
         });
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while creating Client"
+        console.log('here is  hdhksdjf')
+        await client.save().then(data => {
+            res.status(200).send({
+                message:"Client created successfully!!",
+                client:data
+            });
+        }).catch(err => {
+            console.log(err)
+            res.status(500).send({
+                message: err.message || "Some error occurred while creating Client"
+            });
         });
-    });
-};
+    })
 
 // Retrieve all Clients from the database.
 exports.findAll = async (req, res) => {
@@ -47,7 +52,7 @@ exports.findOne = async (req, res) => {
 
 // Update a Client by the id in the request
 exports.update = async (req, res) => {
-    if(!req.body) {
+    if(!req.body.email || !req.body.name || !req.body.cin || !req.body.phone) {
         res.status(400).send({
             message: "Data to update can not be empty!"
         });
@@ -55,15 +60,16 @@ exports.update = async (req, res) => {
     
     const id = req.params.id;
     
-    await Client.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => {
+    await Client.findByIdAndUpdate(id, req.body).then(data => {
         if (!data) {
             res.status(404).send({
                 message: `Client not found.`
             });
         }else{
-            res.send({ message: "Client updated successfully." })
+            res.status(200).send({ message: "Client updated successfully." })
         }
     }).catch(err => {
+        console.log(err)
         res.status(500).send({
             message: err.message
         });

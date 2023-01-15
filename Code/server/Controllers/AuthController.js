@@ -17,7 +17,7 @@ const Login = asyncHandler (async (req, res) => {
     const user = await User.findOne({email})
     if (!password || !email) {
         res.status(400)
-            throw new Error('User not verified')
+            throw new Error('User not exist')
         
     }
     // console.log(user)
@@ -103,7 +103,7 @@ const ForgetPassword = asyncHandler(async (req,res) => {
     const {email} = req.body
     console.log(req.body)
     if(!email ){
-        res.status(200)
+        res.status(400)
         throw new Error("Please add a text field")
     } 
     const user = await User.findOne({email})
@@ -116,7 +116,7 @@ const ForgetPassword = asyncHandler(async (req,res) => {
 
     res.status(200).send('plaise check your email for reset your password of email : '+ req.body.email)
     } else {
-        res.status(400)
+        res.status(402)
         throw new Error("Invalid email")
     } 
 }) 

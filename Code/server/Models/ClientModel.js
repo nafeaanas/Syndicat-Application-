@@ -4,7 +4,6 @@ const clientShema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please add a name'],
-        unique: true,
         trim: true,
         maxlength: [50, 'Name can not be more than 50 characters']
     },
@@ -15,6 +14,7 @@ const clientShema = new mongoose.Schema({
     },
     email: {
         type: String,
+        required: [true, 'Please add an email'],
         unique: true,
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -23,6 +23,7 @@ const clientShema = new mongoose.Schema({
     },
     phone: {
         type: String,
+        required: [true, 'Please add an phone'],
         unique: true
     },
 },
