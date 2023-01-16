@@ -3,7 +3,7 @@ const colors = require('colors');
 const router = require('./Routes/AuthRoute');
 const clientRoute = require('./Routes/ClientRoute')
 const appartementRoute =require('./Routes/AppartementRoute')
-const paymentRoute =require('./Routes/PaymentRouters')
+const paymentRoute = require('./Routes/PaymentRouters')
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
 
@@ -19,7 +19,7 @@ app.use(cors())
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use('/api/auth', router);
+app.use('/api/auth', router); 
 app.use('/api/client',clientRoute);
 app.use('/api/apartement',appartementRoute);
 app.use('/api/payment',paymentRoute)

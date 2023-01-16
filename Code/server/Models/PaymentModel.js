@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
-const Appartement = require('./AppartementModel')
-const Client = require('./ClientModel')
+// const Appartemente = require('./AppartementModel')
+// const Cliente = require('./ClientModel')
 
 const paymentSchema = mongoose.Schema({
     cin: {
         type: String,
         require: [true, "SVP Entrer Votre CIN"],
-        ref: Client
+        ref: "Client"
     },
     Name_Immeuble: {
         type: String,
         require: [true, "SVP Entrer Votre Name de immeuble"],
-        ref: Appartement
+        ref: "Appartement"
     },
     Number_Appartement: {
         type: String,
         require: [true, "SVP Entrer Votre Number de Appartement"],
-        ref: Appartement
+        ref: "Appartement"
     },
     Date: {
         type: Date,
