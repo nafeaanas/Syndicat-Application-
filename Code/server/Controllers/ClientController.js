@@ -7,7 +7,7 @@ exports.create = asyncHandler(
         console.log(req.body)
         if (!req.body.email || !req.body.name || !req.body.cin || !req.body.phone) {
         res.status(400)
-           throw new Error('content not be  empty')
+        throw new Error('content not be  empty')
         }
         
         const client = new Client({
