@@ -6,15 +6,16 @@ const appartementSchema = mongoose.Schema({
         required: [true, "Entrer Votre Name de Immeuble"],
     },
     Number_Appartement: {
-        type: Number,
+        type: String,
         required: [true, "SVP Entrer Votre Number de Appartement"],
         unique: true
     },
     Status:{
         type: String,
-        enum: ['libre', 'occupée'],
-        default: 'libre',
     },
+    Numbre_Etage_Appartement:{
+        type:String
+    }
 })
 
 module.exports=mongoose.model("Appartement",appartementSchema);

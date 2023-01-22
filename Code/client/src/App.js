@@ -1,24 +1,52 @@
-import Login from "./pages/login";
-import Register from "./pages/register";
-import Reset from "./pages/resetpassword";
-import Forgot from "./pages/forgotpassword";
-import Home from "./pages/home";
-import {Routes,Route} from "react-router-dom"
-import Protected from "./Protected";
+import { Routes, Route, Form } from "react-router-dom";
+import Layout from "./components/dashboard/Layout";
+import ProtectedRoutes from "./components/protected";
+
+import {
+  notfound,
+  PaymentPage,
+  LoginPage,
+  DashboardPage,
+  ClientPage,
+  ApparetementPage,
+} from "./pages/index";
+
+import { AddAppartemt, AddClient, AddPayment } from "./components/add/index";
+import {
+  UpdateAppartement,
+  UpdateClient,
+  UpdatePayment,
+} from "./components/update/index";
+// import ProtectedRoutes from "./components/protected";
+
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/"element={<Login/>}/>
-        {/* <Route path="/logout"element={<Login/>}/> */}
-        <Route path="/register"element={<Register/>}/>
-        <Route path="/reset"element={<Reset/>}/>
-        <Route path="/forgot"element={<Forgot/>}/>
 
-        <Route path="/"element={<Protected/>}>
-            <Route path="/home"element={<Home/>}/>
-        </Route>
-      </Routes>
+
+
+<Routes>
+
+    <Route path="/" element={<LoginPage />} />
+    <Route path="*" element={<notfound/>}/>
+    <Route element={<ProtectedRoutes/>}>
+    <Route path="dashboard/" element={<Layout />}>
+              <Route path="client" element={<ClientPage />} />
+              <Route path="apparetement" element={<ApparetementPage />} />
+              <Route path="payment" element={<PaymentPage />} />
+              <Route path="addappartement" element={<AddAppartemt />} />
+              <Route path="addclient" element={<AddClient />} />
+              <Route path="addpayment/:id" element={<AddPayment />} />
+              <Route path="updateappartement/:id" element={<UpdateAppartement />} />
+              <Route path="updateclient/:id" element={<UpdateClient />} />
+              <Route path="updatepayment/:id" element={<UpdatePayment />} />
+    </Route>
+    </Route>
+</Routes>
+
+
+
+      
     </div>
   );
 }

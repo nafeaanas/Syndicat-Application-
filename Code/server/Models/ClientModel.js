@@ -25,9 +25,7 @@ const clientSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add an phone'],
         unique: true
-    },
-},
-);
+    }
+});
 
-module.exports = mongoose.model('Client', clientSchema);
-
+module.exports = mongoose.model("Client", clientSchema);

@@ -1,8 +1,6 @@
 import React from 'react'
 import LoginImg from '../assets/Computer login.gif'
-import Google from '../assets/google.png'
-import Facebook from '../assets/facebook (1).png'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { Lang, useFormInputValidation } from "react-form-input-validation";
 import axios from "axios";
@@ -10,6 +8,7 @@ import Cookies from "universal-cookie";
 const  cookies = new Cookies();
 
 export default function Login() {
+  const navigate = useNavigate()
     console.log('register' )
 
         const [fields, errors, form] = useFormInputValidation(
@@ -26,13 +25,13 @@ export default function Login() {
 
         form.useLang(Lang.en);
 
-        
         const onSubmit = async (event) => {
             console.log('onsubmit')
             const isValid = await form.validate(event);
             if (isValid) {
 
                 console.log("MAKE AN API CALL", fields, errors);
+                // let name = fields.name ;
                 let email = fields.email ;
                 let password =fields.password ;
                 
@@ -45,21 +44,24 @@ export default function Login() {
                             email,
                             password,
                         },
+
+                        
                         config: { headers: { 'Content-Type': 'multipart/form-data' } }
                     };
                     axios(configuration)
                         .then((result) => {
-                            console.log(result.data)
-                            cookies.set("TOKEN", result.data.token, {
-                                path: "/",
-                            })
-                            
-                            window.location.href = "/home";
-                            
+                           
+                            console.log(result.data.token)
+                    
+                            localStorage.setItem("token",result.data.token);
+                            navigate('/dashboard')
+                       
+                           
                             
                         })
                         .catch((error) => {
                             console.log(error);
+                            
                             error = new Error();
                         });
             }
@@ -75,10 +77,6 @@ export default function Login() {
                     <div className='space-y-2'>
                         <p className='text-lg text-gray-600'>Hey welcome back 👋 Login first</p>
                     </div>
-
-                    
-
-                    
 
                     <form noValidate autoComplete="off" onSubmit={onSubmit} className='pt-4 space-y-6'>
                         <div>

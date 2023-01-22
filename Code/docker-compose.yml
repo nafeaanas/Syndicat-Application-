@@ -1,0 +1,10 @@
+version: '4'
+services:
+  fontend:
+    build: ./client
+    ports:
+      - 3000:3000
+  backend:
+    build: ./server
+    ports:
+      - 8000:8000

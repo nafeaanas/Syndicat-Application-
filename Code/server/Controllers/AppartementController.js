@@ -1,17 +1,19 @@
 
 
 const asyncHandler = require('express-async-handler');
-const Appartement = require('../models/AppartementModel');
+const Appartement = require('../Models/AppartementModel');
 
 
 
 const CreateAppartement = asyncHandler(async (req, res) => {
     const { Name_Immeuble, Numbre_Etage_Appartement, Number_Appartement, Status } = req.body;
+    console.log('req.body', req.body)
     if (!Name_Immeuble || !Numbre_Etage_Appartement || !Number_Appartement || !Status) {
-        return res.status(400).json({ message: "Merci de compléter tous les champs !" })
+        return res.status(400).json({ message: "Merci de compléter tous les champshh !" })
     }
 
     const checkNumberAppartement = await Appartement.findOne({ Number_Appartement: req.body.Number_Appartement })
+    console.log('checkNumberAppartement', checkNumberAppartement)
     if (checkNumberAppartement) {
         return res.status(200).json({ message: "Appartement déjà existant" })
     }
